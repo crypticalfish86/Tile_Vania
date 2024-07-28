@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BackgroundLayer
+    uniqueID: 210972313
+    locked: 0
+  - name: WaterLayer
+    uniqueID: 1097072895
+    locked: 0
+  - name: PlatformLayer
+    uniqueID: 2993312657
+    locked: 0

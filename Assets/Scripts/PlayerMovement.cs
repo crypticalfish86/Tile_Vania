@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Run();
+        FlipSprite();
     }
 
     //When player jumps (Key = Spacebar)
@@ -34,5 +35,13 @@ public class PlayerMovement : MonoBehaviour
         private void Run(){
             Vector2 playerVelocity = new Vector2 (runSpeed * moveInput.x, myRigidBody.velocity.y); //keeps velocity the same (so if you have gravity on it stays the same)
             myRigidBody.velocity = playerVelocity; //rigidbody.velocity is the speed in a certain direction of the physics of your object
+        }
+        
+        private void FlipSprite(){
+            bool playerHasHorizontalSpeed = Mathf.Abs(myRigidBody.velocity.x) > Mathf.Epsilon;
+
+            if (playerHasHorizontalSpeed){
+                transform.localScale = new Vector2 (Mathf.Sign(myRigidBody.velocity.x), 1f);
+            }
         }
 }

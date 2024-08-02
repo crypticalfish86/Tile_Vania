@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] float runSpeed = 8f;
     [SerializeField] float jumpSpeed = 4f;
+    [SerializeField] float climbSpeed = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Run();
         FlipSprite();
+        ClimbLadder();
     }
 
     //When player jumps, makes player jump(Key = Spacebar)
@@ -66,4 +68,13 @@ public class PlayerMovement : MonoBehaviour
                 transform.localScale = new Vector2 (Mathf.Sign(myRigidBody.velocity.x), 1f); //sprite scale is either -1 or 1 due to Mathf.Sign which just determines +ve/-ve value
             }
         }
+
+    //Add y velocity to player when player comes in contact with climbing ladder
+    private void ClimbLadder(){
+
+        if (myCollider.IsTouchingLayers(LayerMask.GetMask("Climbing"))){
+            Vector2 playerVelocity = new Vector2 (myRigidBody.velocity.x, climbSpeed * moveInput.y);
+            myRigidBody.velocity = playerVelocity;
+        }
+    }
 }

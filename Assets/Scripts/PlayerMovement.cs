@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-    //Add y velocity to player when player comes in contact with climbing ladder
+    //Add y velocity and turn off gravity to player when player comes in contact with climbing ladder
     private void ClimbLadder(){
 
         if (myCollider.IsTouchingLayers(LayerMask.GetMask("Climbing"))){
@@ -79,9 +79,18 @@ public class PlayerMovement : MonoBehaviour
 
             Vector2 playerVelocity = new Vector2 (myRigidBody.velocity.x, climbSpeed * moveInput.y);
             myRigidBody.velocity = playerVelocity;
+
+            //if player is climbing player climbing animation, if idling on ladder play idle animation
+            if(myRigidBody.velocity.y != 0){
+                playerAnimator.SetBool("isClimbing", true);
+            }
+            else{
+                playerAnimator.SetBool("isClimbing", false);
+            }
         }
         else{
             myRigidBody.gravityScale = defaultGravity;
+            playerAnimator.SetBool("isClimbing", false);
         }
     }
 }

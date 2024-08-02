@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     
     private Vector2 moveInput; //user input to move player
     private Rigidbody2D myRigidBody; //player physics
+    private Collider2D myCollider; //player collider
     private Animator playerAnimator;//the animator of the player
 
     [SerializeField] float runSpeed = 8f;
@@ -19,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
+        myCollider = GetComponent<Collider2D>();
         playerAnimator = GetComponent<Animator>();
     }
 
@@ -32,8 +34,8 @@ public class PlayerMovement : MonoBehaviour
     //When player jumps, makes player jump(Key = Spacebar)
     private void OnJump(InputValue value){
         Debug.Log("Jumped");
-        //if input value key pressed then jump
-        if(value.isPressed){
+        //if input value key pressed, and player is touching ground then jump
+        if(value.isPressed && myCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))){
             myRigidBody.velocity += new Vector2 (0, jumpSpeed);
         }
     }

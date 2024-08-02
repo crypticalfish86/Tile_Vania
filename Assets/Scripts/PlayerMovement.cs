@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator playerAnimator;//the animator of the player
 
     [SerializeField] float runSpeed = 8f;
+    [SerializeField] float jumpSpeed = 4f;
 
     // Start is called before the first frame update
     void Start()
@@ -28,12 +29,16 @@ public class PlayerMovement : MonoBehaviour
         FlipSprite();
     }
 
-    //When player jumps (Key = Spacebar)
+    //When player jumps, makes player jump(Key = Spacebar)
     private void OnJump(InputValue value){
         Debug.Log("Jumped");
+        //if input value key pressed then jump
+        if(value.isPressed){
+            myRigidBody.velocity += new Vector2 (0, jumpSpeed);
+        }
     }
 
-    //changes the value of moveInput
+    //changes the value of moveInput (Keys = WASD)
     private void OnMove(InputValue value){
         moveInput = value.Get<Vector2>();
     }

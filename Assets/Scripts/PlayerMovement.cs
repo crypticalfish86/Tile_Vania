@@ -8,8 +8,9 @@ using UnityEngine.UIElements.Experimental;
 public class PlayerMovement : MonoBehaviour
 {
     
-    private Vector2 moveInput; //user input to move player
+    private Vector2 moveInput; //user input to move player (x direction: a = -1, d = 1. y direction s = -1, w = 1)
     private Rigidbody2D myRigidBody; //player physics
+        private float defaultGravity; //default gravity (don't start scene with player on ladder or this breaks)
     private Collider2D myCollider; //player collider
     private Animator playerAnimator;//the animator of the player
 
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
+            defaultGravity = myRigidBody.gravityScale;
         myCollider = GetComponent<Collider2D>();
         playerAnimator = GetComponent<Animator>();
     }
@@ -73,8 +75,13 @@ public class PlayerMovement : MonoBehaviour
     private void ClimbLadder(){
 
         if (myCollider.IsTouchingLayers(LayerMask.GetMask("Climbing"))){
+            myRigidBody.gravityScale = 0f;
+
             Vector2 playerVelocity = new Vector2 (myRigidBody.velocity.x, climbSpeed * moveInput.y);
             myRigidBody.velocity = playerVelocity;
+        }
+        else{
+            myRigidBody.gravityScale = defaultGravity;
         }
     }
 }

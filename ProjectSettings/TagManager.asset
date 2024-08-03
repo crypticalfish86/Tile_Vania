@@ -8,12 +8,12 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground
+  - BackGround
   - Water
   - UI
+  - Ground
   - Climbing
-  - 
-  - 
+  - Player
   - 
   - 
   - 

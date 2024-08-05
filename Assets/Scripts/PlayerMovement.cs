@@ -9,18 +9,25 @@ public class PlayerMovement : MonoBehaviour
 {
     
     private Vector2 moveInput; //user input to move player (x direction: a = -1, d = 1. y direction s = -1, w = 1)
+    private PlayerInput playerInputComponent;
     private Rigidbody2D myRigidBody; //player physics
         private float defaultGravity; //default gravity (don't start scene with player on ladder or this breaks)
     private BoxCollider2D myFeetCollider; //player feet collider
     private Animator playerAnimator;//the animator of the player
 
+    private bool isAlive;
+
     [SerializeField] float runSpeed = 8f;
     [SerializeField] float jumpSpeed = 4f;
     [SerializeField] float climbSpeed = 1f;
+    [SerializeField] Vector2 deathKickSpeed = new Vector2 (10f, 10f);
 
     // Start is called before the first frame update
     void Start()
     {
+        isAlive = true;
+        playerInputComponent = GetComponent<PlayerInput>();
+            playerInputComponent.ActivateInput();//activate controls
         myRigidBody = GetComponent<Rigidbody2D>();
             defaultGravity = myRigidBody.gravityScale;
         myFeetCollider = GetComponent<BoxCollider2D>();
@@ -91,6 +98,38 @@ public class PlayerMovement : MonoBehaviour
         else{
             myRigidBody.gravityScale = defaultGravity;
             playerAnimator.SetBool("isClimbing", false);
+        }
+    }
+
+    /*
+        when touching enemy kill player:
+            -set alive status to false
+            -turn off collision between enemy layer and player layer
+            -run Die()
+    */
+    private void OnCollisionEnter2D(Collision2D other) {
+        if (other.gameObject.tag == "Enemy" && isAlive){
+            isAlive = false;
+            LayerMask enemyLayerMask = LayerMask.NameToLayer("Enemy");
+            Physics2D.IgnoreLayerCollision(gameObject.layer, enemyLayerMask, true);
+            Die();
+        }
+    }
+    
+    /*#
+        on death:
+            -deactivate player controls
+            -set death animation
+            -reset gravity to default
+            -kick player in the air for death effect
+    */
+    private void Die(){
+        if (!isAlive){
+            playerInputComponent.DeactivateInput();
+            playerAnimator.SetTrigger("Death");
+            myRigidBody.gravityScale = defaultGravity;
+            myRigidBody.velocity += deathKickSpeed;
+            
         }
     }
 }

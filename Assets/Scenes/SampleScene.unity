@@ -765,6 +765,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741826
+  - first: {x: 8, y: -8, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 11
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 1
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741826
   - first: {x: 12, y: -8, z: 0}
     second:
       serializedVersion: 2
@@ -2589,12 +2599,12 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 149
+  - m_RefCount: 150
     m_Data: {fileID: 11400000, guid: 02bcfbdc9b854414c802f074d0bf4625, type: 2}
   - m_RefCount: 60
     m_Data: {fileID: 11400000, guid: bad6a9a38eed88846a2045d0072b3d23, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 40
+  - m_RefCount: 41
     m_Data: {fileID: -1122078888, guid: b54ca02ba12b6de49bb0ee75e61476eb, type: 3}
   - m_RefCount: 23
     m_Data: {fileID: 1594546983, guid: b54ca02ba12b6de49bb0ee75e61476eb, type: 3}
@@ -2643,7 +2653,7 @@ Tilemap:
       e31: 0
       e32: 0
       e33: 1
-  - m_RefCount: 197
+  - m_RefCount: 198
     m_Data:
       e00: 1
       e01: 0
@@ -2716,7 +2726,7 @@ Tilemap:
       e32: 4.5905e-41
       e33: 0
   m_TileColorArray:
-  - m_RefCount: 209
+  - m_RefCount: 210
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -2797,6 +2807,14 @@ CompositeCollider2D:
         Y: 60000000
       - X: 120000000
         Y: -80000000
+      - X: 90000000
+        Y: -80000000
+      - X: 90000000
+        Y: -70000000
+      - X: 80000000
+        Y: -70000000
+      - X: 80000000
+        Y: -80000000
     - - X: 500000000
         Y: 30000000
       - X: 370000000
@@ -2820,6 +2838,10 @@ CompositeCollider2D:
       - {x: -15, y: 6.9999704}
       - {x: -14.999971, y: -9}
     - - {x: 12, y: -7.9999704}
+      - {x: 9, y: -7.9999704}
+      - {x: 8.99997, y: -7}
+      - {x: 8, y: -7.0000296}
+      - {x: 7.9999704, y: -8}
       - {x: -14, y: -7.9999704}
       - {x: -13.999971, y: 6}
       - {x: 12, y: 5.9999704}
@@ -13786,41 +13808,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -5244252343937574910, guid: 6a31e77b608e0b4468e05129beffcb9d, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: cf1488405aa801d438dcefce828a5255, type: 2}
-    - target: {fileID: 1563473024577721510, guid: 6a31e77b608e0b4468e05129beffcb9d, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: cf1488405aa801d438dcefce828a5255, type: 2}
-    - target: {fileID: 1563473024577721510, guid: 6a31e77b608e0b4468e05129beffcb9d, type: 3}
-      propertyPath: m_GravityScale
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1563473024577721510, guid: 6a31e77b608e0b4468e05129beffcb9d, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2036917222519737726, guid: 6a31e77b608e0b4468e05129beffcb9d, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 2036917222519737726, guid: 6a31e77b608e0b4468e05129beffcb9d, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7730369448493329744, guid: 6a31e77b608e0b4468e05129beffcb9d, type: 3}
-      propertyPath: runSpeed
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7730369448493329744, guid: 6a31e77b608e0b4468e05129beffcb9d, type: 3}
-      propertyPath: jumpSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7730369448493329744, guid: 6a31e77b608e0b4468e05129beffcb9d, type: 3}
-      propertyPath: climbSpeed
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9035572843977530159, guid: 6a31e77b608e0b4468e05129beffcb9d, type: 3}
       propertyPath: m_LocalPosition.x

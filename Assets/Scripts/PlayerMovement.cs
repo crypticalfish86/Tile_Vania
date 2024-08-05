@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput; //user input to move player (x direction: a = -1, d = 1. y direction s = -1, w = 1)
     private Rigidbody2D myRigidBody; //player physics
         private float defaultGravity; //default gravity (don't start scene with player on ladder or this breaks)
-    private Collider2D myCollider; //player collider
+    private BoxCollider2D myFeetCollider; //player feet collider
     private Animator playerAnimator;//the animator of the player
 
     [SerializeField] float runSpeed = 8f;
@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     {
         myRigidBody = GetComponent<Rigidbody2D>();
             defaultGravity = myRigidBody.gravityScale;
-        myCollider = GetComponent<Collider2D>();
+        myFeetCollider = GetComponent<BoxCollider2D>();
         playerAnimator = GetComponent<Animator>();
     }
 
@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnJump(InputValue value){
         Debug.Log("Jumped");
         //if input value key pressed, and player is touching ground then jump
-        if(value.isPressed && myCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))){
+        if(value.isPressed && myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))){
             myRigidBody.velocity += new Vector2 (0, jumpSpeed);
         }
     }
@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
     //Add y velocity and turn off gravity to player when player comes in contact with climbing ladder
     private void ClimbLadder(){
 
-        if (myCollider.IsTouchingLayers(LayerMask.GetMask("Climbing"))){
+        if (myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Climbing"))){
             myRigidBody.gravityScale = 0f;
 
             Vector2 playerVelocity = new Vector2 (myRigidBody.velocity.x, climbSpeed * moveInput.y);

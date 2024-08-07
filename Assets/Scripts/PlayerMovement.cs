@@ -108,12 +108,23 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    //Instantiate/Fire an arrow/bullet from the bow position
+    /*
+        Begin Coroutine to Instantiate/Fire an arrow/bullet from the bow position.
+        Coroutine plays the shooting animation, then instantiates an arrow at the exact moment in the animation that the bow fires
+        then switches bool to false allowing player to idle again
+    */
     private void OnFire(InputValue value) {
         if (value.isPressed){
-            Instantiate(arrow, bow.transform.position, Quaternion.identity);
+            StartCoroutine(ShootArrow());
         }
     }
+        private IEnumerator ShootArrow() {
+            
+            playerAnimator.SetBool("isShooting", true);
+            yield return new WaitForSeconds(0.3f);
+            Instantiate(arrow, bow.transform.position, Quaternion.identity);
+            playerAnimator.SetBool("isShooting", false);
+        }
 
     /*
         when touching enemy kill player:

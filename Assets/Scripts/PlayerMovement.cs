@@ -37,9 +37,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Run();
-        FlipSprite();
-        ClimbLadder();
+        if (isAlive){
+            Run();
+            FlipSprite();
+            ClimbLadder();
+        }
     }
 
     //When player jumps, makes player jump(Key = Spacebar)
@@ -128,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
             playerInputComponent.DeactivateInput();
             playerAnimator.SetTrigger("Death");
             myRigidBody.gravityScale = defaultGravity;
-            myRigidBody.velocity += deathKickSpeed;
+            myRigidBody.velocity = deathKickSpeed;
             
         }
     }

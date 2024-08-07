@@ -113,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag == "Enemy" && isAlive){
             isAlive = false;
             LayerMask enemyLayerMask = LayerMask.NameToLayer("Enemy");
-            Physics2D.IgnoreLayerCollision(gameObject.layer, enemyLayerMask, true);
+            Physics2D.IgnoreLayerCollision(gameObject.layer, enemyLayerMask, true);//turn off collision between enemy and player to prevent further collision
             Die();
         }
     }
@@ -130,8 +130,15 @@ public class PlayerMovement : MonoBehaviour
             playerInputComponent.DeactivateInput();
             playerAnimator.SetTrigger("Death");
             myRigidBody.gravityScale = defaultGravity;
-            myRigidBody.velocity = deathKickSpeed;
             
+            //depending on if player is facing left or right, the death kick speed kicks the player sprite in different x directions
+            if (transform.localScale.x > 0){
+                myRigidBody.velocity = deathKickSpeed;
+            }
+            else{
+                deathKickSpeed.x = -deathKickSpeed.x;
+                myRigidBody.velocity = deathKickSpeed;
+            }
         }
     }
 }

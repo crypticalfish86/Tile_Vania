@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject bow;
     [SerializeField] GameObject arrow;
 
+    private bool currentlyShooting; //bool to determine if player is currently firing arrow
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
             defaultGravity = myRigidBody.gravityScale;
         myFeetCollider = GetComponent<BoxCollider2D>();
         playerAnimator = GetComponent<Animator>();
+        currentlyShooting = false;//start being able to shoot
     }
 
     // Update is called once per frame
@@ -114,16 +117,18 @@ public class PlayerMovement : MonoBehaviour
         then switches bool to false allowing player to idle again
     */
     private void OnFire(InputValue value) {
-        if (value.isPressed){
+        if (value.isPressed && !currentlyShooting){
             StartCoroutine(ShootArrow());
         }
     }
         private IEnumerator ShootArrow() {
-            
+            currentlyShooting = true;
             playerAnimator.SetBool("isShooting", true);
             yield return new WaitForSeconds(0.3f);
             Instantiate(arrow, bow.transform.position, Quaternion.identity);
             playerAnimator.SetBool("isShooting", false);
+            yield return new WaitForSeconds(0.4f);
+            currentlyShooting = false;
         }
 
     /*

@@ -17,10 +17,15 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isAlive;
 
+    [Header("player movement")]
     [SerializeField] float runSpeed = 8f;
     [SerializeField] float jumpSpeed = 4f;
     [SerializeField] float climbSpeed = 1f;
     [SerializeField] Vector2 deathKickSpeed = new Vector2 (10f, 10f);
+
+    [Header("Firing Mechanism")]
+    [SerializeField] GameObject bow;
+    [SerializeField] GameObject arrow;
 
     // Start is called before the first frame update
     void Start()
@@ -72,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         //flips player sprite when moving right or left
-        private void FlipSprite(){
+        private void FlipSprite() {
             bool playerHasHorizontalSpeed = Mathf.Abs(myRigidBody.velocity.x) > Mathf.Epsilon; //if absolute velocity value is greater than near 0 value(Mathf.Epsilon)
 
             if (playerHasHorizontalSpeed){
@@ -81,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
     //Add y velocity and turn off gravity to player when player comes in contact with climbing ladder
-    private void ClimbLadder(){
+    private void ClimbLadder() {
 
         if (myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Climbing"))){
             myRigidBody.gravityScale = 0f;
@@ -100,6 +105,13 @@ public class PlayerMovement : MonoBehaviour
         else{
             myRigidBody.gravityScale = defaultGravity;
             playerAnimator.SetBool("isClimbing", false);
+        }
+    }
+
+    //Instantiate/Fire an arrow/bullet from the bow position
+    private void OnFire(InputValue value) {
+        if (value.isPressed){
+            Instantiate(arrow, bow.transform.position, Quaternion.identity);
         }
     }
 

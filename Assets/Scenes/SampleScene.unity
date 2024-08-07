@@ -3153,7 +3153,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1af7f8ffcc5e3c948a3cb1e85b2b9bc9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14000,21 +14000,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1563473024577721510, guid: 6a31e77b608e0b4468e05129beffcb9d, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 2036917222519737726, guid: 6a31e77b608e0b4468e05129beffcb9d, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7730369448493329744, guid: 6a31e77b608e0b4468e05129beffcb9d, type: 3}
-      propertyPath: deathKickSpeed.x
-      value: -5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7730369448493329744, guid: 6a31e77b608e0b4468e05129beffcb9d, type: 3}
-      propertyPath: deathKickSpeed.y
-      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 9035572843977530159, guid: 6a31e77b608e0b4468e05129beffcb9d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14108,14 +14096,6 @@ PrefabInstance:
     - target: {fileID: 3261102886108437461, guid: 9c8acad1e5bf0b745b8bcf4ea03fb860, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5052722818244184792, guid: 9c8acad1e5bf0b745b8bcf4ea03fb860, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778205680043441554, guid: 9c8acad1e5bf0b745b8bcf4ea03fb860, type: 3}
-      propertyPath: enemyVelocity
-      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8864851261029586219, guid: 9c8acad1e5bf0b745b8bcf4ea03fb860, type: 3}
       propertyPath: m_Name

@@ -184,7 +184,6 @@ public class PlayerMovement : MonoBehaviour
     }
         private IEnumerator ReloadLevel(){
             yield return new WaitForSeconds(2f);
-            int currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(currentLevelIndex);
+            FindObjectOfType<GameSessionController>().ProcessPlayerDeath();
         }
 }

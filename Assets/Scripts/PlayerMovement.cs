@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements.Experimental;
 
 public class PlayerMovement : MonoBehaviour
@@ -15,7 +16,10 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D myFeetCollider; //player feet collider
     private Animator playerAnimator;//the animator of the player
 
+    //death and enemies
     private bool isAlive;
+
+    LayerMask enemyLayerMask;
 
     [Header("player movement")]
     [SerializeField] float runSpeed = 8f;
@@ -41,6 +45,9 @@ public class PlayerMovement : MonoBehaviour
         myFeetCollider = GetComponent<BoxCollider2D>();
         playerAnimator = GetComponent<Animator>();
         currentlyShooting = false;//start being able to shoot
+
+        enemyLayerMask = LayerMask.NameToLayer("Enemy");
+        Physics2D.IgnoreLayerCollision(gameObject.layer, enemyLayerMask, false); //restart collision between player and enemy layer
     }
 
     // Update is called once per frame
@@ -141,7 +148,6 @@ public class PlayerMovement : MonoBehaviour
         currentlyJumping = false;
         if (other.gameObject.tag == "Enemy" && isAlive){
             isAlive = false;
-            LayerMask enemyLayerMask = LayerMask.NameToLayer("Enemy");
             Physics2D.IgnoreLayerCollision(gameObject.layer, enemyLayerMask, true);//turn off collision between enemy and player to prevent further collision
             Die();
         }
@@ -172,6 +178,13 @@ public class PlayerMovement : MonoBehaviour
                 deathKickSpeed.x = -deathKickSpeed.x;
                 myRigidBody.velocity = deathKickSpeed;
             }
+
+            StartCoroutine(ReloadLevel());
         }
     }
+        private IEnumerator ReloadLevel(){
+            yield return new WaitForSeconds(2f);
+            int currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(currentLevelIndex);
+        }
 }

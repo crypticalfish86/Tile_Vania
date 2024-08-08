@@ -15,6 +15,7 @@ public class EnemyMovement : MonoBehaviour
     {
         enemyRigidBody = GetComponent<Rigidbody2D>();
         enemyPosition = GetComponent<Transform>();
+        enemyVelocity = enemyVelocity * Mathf.Sign(enemyPosition.localScale.x);
     }
 
     // Update is called once per frame

@@ -12,9 +12,9 @@ public class Bullet : MonoBehaviour
     {
         myRigidBody = GetComponent<Rigidbody2D>();
         
-        Vector2 playerScale = FindFirstObjectByType<PlayerInput>().transform.localScale;
-        transform.localScale = playerScale;
-        float bulletVelocity = bulletSpeed * playerScale.x; //multiply speed by x scale to shoot bullet right way
+        Vector2 playerScale = FindFirstObjectByType<PlayerInput>().transform.localScale; //get player scale
+        transform.localScale = playerScale; //change x direction of bullet based on player scale
+        float bulletVelocity = bulletSpeed * playerScale.x; //multiply speed by x scale to shoot bullet the right way
         myRigidBody.velocity = new Vector2 (bulletVelocity, 0);
     }
 

@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject arrow;
 
     private bool currentlyShooting; //bool to determine if player is currently firing arrow
+    private bool currentlyJumping; //bool to determine if player is in the air/jumping
 
     // Start is called before the first frame update
     void Start()
@@ -54,9 +55,8 @@ public class PlayerMovement : MonoBehaviour
 
     //When player jumps, makes player jump(Key = Spacebar)
     private void OnJump(InputValue value){
-        Debug.Log("Jumped");
         //if input value key pressed, and player is touching ground then jump
-        if(value.isPressed && myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))){
+        if(value.isPressed && (myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) || myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")))){
             myRigidBody.velocity += new Vector2 (0, jumpSpeed);
         }
     }
@@ -117,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
         then switches bool to false allowing player to idle again
     */
     private void OnFire(InputValue value) {
-        if (value.isPressed && !currentlyShooting){
+        if (value.isPressed && !currentlyShooting && !currentlyJumping){
             StartCoroutine(ShootArrow());
         }
     }
@@ -138,12 +138,17 @@ public class PlayerMovement : MonoBehaviour
             -run Die()
     */
     private void OnCollisionEnter2D(Collision2D other) {
+        currentlyJumping = false;
         if (other.gameObject.tag == "Enemy" && isAlive){
             isAlive = false;
             LayerMask enemyLayerMask = LayerMask.NameToLayer("Enemy");
             Physics2D.IgnoreLayerCollision(gameObject.layer, enemyLayerMask, true);//turn off collision between enemy and player to prevent further collision
             Die();
         }
+    }
+
+    private void OnCollisionExit2D(Collision2D other) {
+        currentlyJumping = true;
     }
     
     /*#

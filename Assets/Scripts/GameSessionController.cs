@@ -1,12 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameSessionController : MonoBehaviour
 {
+    [Header("Object references")]
+    [SerializeField] TextMeshProUGUI livesTextObject;
+    [SerializeField] TextMeshProUGUI scoreTextObject;
+
+    [Header("Numbers")]
     [SerializeField] int startingPlayerLives = 3;
         int currentPlayerLives;
+    int currentScore;
 
     /*
         Ensure single game object persits on scene reloads and doesn't get deleted (destroy any objects after initlization of first one).
@@ -27,7 +36,13 @@ public class GameSessionController : MonoBehaviour
         }
 
         //Initialize starting variables
+        
         currentPlayerLives = startingPlayerLives;
+        SetLivesInTextUI();
+        
+        currentScore = 0;
+        SetScoreInTextUI();
+
     }
     
     //if players lives run out restart game, otherwise remove a life
@@ -39,9 +54,24 @@ public class GameSessionController : MonoBehaviour
         }
         else {
             currentPlayerLives--;
+            SetLivesInTextUI();
             Debug.Log("Player Lives: " + currentPlayerLives);
             int currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
             SceneManager.LoadScene(currentLevelIndex);
         }
+    }
+
+    //Lives
+    private void SetLivesInTextUI() {
+        livesTextObject.text = $"Lives x {currentPlayerLives}";
+    }
+
+    //Score
+    public void addToScore(int scoreToAdd) {
+        currentScore += scoreToAdd;
+        SetScoreInTextUI();
+    }
+    private void SetScoreInTextUI() {
+        scoreTextObject.text = $"Score: {currentScore}";
     }
 }

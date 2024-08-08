@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 
 public class Bullet : MonoBehaviour
 {
@@ -18,9 +19,10 @@ public class Bullet : MonoBehaviour
         myRigidBody.velocity = new Vector2 (bulletVelocity, 0);
     }
 
-    //Destroy itself on impact with anything, If bullet hits enemy destroy the enemy too
+    //Destroy itself on impact with anything, If bullet hits enemy destroy the enemy too (also ensure the object isnt a tilemap)
     private void OnCollisionEnter2D(Collision2D other) {
-        if(other.gameObject.tag == "Enemy"){
+        if(other.gameObject.tag == "Enemy" && other.gameObject.GetComponent<TilemapCollider2D>() == null){
+            FindFirstObjectByType<GameSessionController>().addToScore(50);
             Destroy(other.gameObject);
         }
         Destroy(gameObject);
